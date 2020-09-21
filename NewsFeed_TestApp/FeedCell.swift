@@ -7,9 +7,13 @@
 
 import UIKit
 
-class NewsCell: UITableViewCell {
+class FeedCell: UITableViewCell {
+    
+// MARK: Public properties
 
-    static let cellID = "NewsCellID"
+    static let cellID = "FeedCellID"
+    
+// MARK: UI elements
     
     let dateLabel: UILabel = {
         let label = UILabel()
@@ -34,6 +38,8 @@ class NewsCell: UITableViewCell {
         return view
     }()
     
+// MARK: Lifecycle
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -56,7 +62,6 @@ class NewsCell: UITableViewCell {
         authorLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 15).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         authorLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-        
     }
 
     required init?(coder aDecoder: NSCoder) {
