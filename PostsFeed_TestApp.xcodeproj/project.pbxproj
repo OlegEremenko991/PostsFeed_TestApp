@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		67D2FAD32518968200657C24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAD22518968200657C24 /* AppDelegate.swift */; };
 		67D2FAD52518968200657C24 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAD42518968200657C24 /* SceneDelegate.swift */; };
-		67D2FAD72518968200657C24 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAD62518968200657C24 /* ViewController.swift */; };
-		67D2FADA2518968200657C24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D2FAD82518968200657C24 /* Main.storyboard */; };
+		67D2FAD72518968200657C24 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAD62518968200657C24 /* MainVC.swift */; };
 		67D2FADC2518968500657C24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67D2FADB2518968500657C24 /* Assets.xcassets */; };
 		67D2FADF2518968500657C24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D2FADD2518968500657C24 /* LaunchScreen.storyboard */; };
+		67D2FAF22518A24600657C24 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAF12518A24600657C24 /* NewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		67D2FACF2518968200657C24 /* NewsFeed_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D2FACF2518968200657C24 /* PostsFeed_TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostsFeed_TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D2FAD22518968200657C24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67D2FAD42518968200657C24 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		67D2FAD62518968200657C24 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		67D2FAD92518968200657C24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		67D2FAD62518968200657C24 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		67D2FADB2518968500657C24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67D2FADE2518968500657C24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67D2FAE02518968500657C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67D2FAF12518A24600657C24 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +48,7 @@
 		67D2FAD02518968200657C24 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				67D2FACF2518968200657C24 /* NewsFeed_TestApp.app */,
+				67D2FACF2518968200657C24 /* PostsFeed_TestApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,8 +58,8 @@
 			children = (
 				67D2FAD22518968200657C24 /* AppDelegate.swift */,
 				67D2FAD42518968200657C24 /* SceneDelegate.swift */,
-				67D2FAD62518968200657C24 /* ViewController.swift */,
-				67D2FAD82518968200657C24 /* Main.storyboard */,
+				67D2FAD62518968200657C24 /* MainVC.swift */,
+				67D2FAF12518A24600657C24 /* NewsCell.swift */,
 				67D2FADB2518968500657C24 /* Assets.xcassets */,
 				67D2FADD2518968500657C24 /* LaunchScreen.storyboard */,
 				67D2FAE02518968500657C24 /* Info.plist */,
@@ -70,9 +70,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		67D2FACE2518968200657C24 /* NewsFeed_TestApp */ = {
+		67D2FACE2518968200657C24 /* PostsFeed_TestApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 67D2FAE32518968500657C24 /* Build configuration list for PBXNativeTarget "NewsFeed_TestApp" */;
+			buildConfigurationList = 67D2FAE32518968500657C24 /* Build configuration list for PBXNativeTarget "PostsFeed_TestApp" */;
 			buildPhases = (
 				67D2FACB2518968200657C24 /* Sources */,
 				67D2FACC2518968200657C24 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = NewsFeed_TestApp;
+			name = PostsFeed_TestApp;
 			productName = NewsFeed_TestApp;
-			productReference = 67D2FACF2518968200657C24 /* NewsFeed_TestApp.app */;
+			productReference = 67D2FACF2518968200657C24 /* PostsFeed_TestApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -101,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 67D2FACA2518968200657C24 /* Build configuration list for PBXProject "NewsFeed_TestApp" */;
+			buildConfigurationList = 67D2FACA2518968200657C24 /* Build configuration list for PBXProject "PostsFeed_TestApp" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -114,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				67D2FACE2518968200657C24 /* NewsFeed_TestApp */,
+				67D2FACE2518968200657C24 /* PostsFeed_TestApp */,
 			);
 		};
 /* End PBXProject section */
@@ -126,7 +126,6 @@
 			files = (
 				67D2FADF2518968500657C24 /* LaunchScreen.storyboard in Resources */,
 				67D2FADC2518968500657C24 /* Assets.xcassets in Resources */,
-				67D2FADA2518968200657C24 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +136,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67D2FAD72518968200657C24 /* ViewController.swift in Sources */,
+				67D2FAD72518968200657C24 /* MainVC.swift in Sources */,
 				67D2FAD32518968200657C24 /* AppDelegate.swift in Sources */,
+				67D2FAF22518A24600657C24 /* NewsCell.swift in Sources */,
 				67D2FAD52518968200657C24 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,14 +146,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		67D2FAD82518968200657C24 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				67D2FAD92518968200657C24 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		67D2FADD2518968500657C24 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -293,10 +285,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg991.NewsFeed-TestApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg991.PostsFeed-TestApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -312,17 +304,17 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg991.NewsFeed-TestApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oleg991.PostsFeed-TestApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		67D2FACA2518968200657C24 /* Build configuration list for PBXProject "NewsFeed_TestApp" */ = {
+		67D2FACA2518968200657C24 /* Build configuration list for PBXProject "PostsFeed_TestApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D2FAE12518968500657C24 /* Debug */,
@@ -331,7 +323,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		67D2FAE32518968500657C24 /* Build configuration list for PBXNativeTarget "NewsFeed_TestApp" */ = {
+		67D2FAE32518968500657C24 /* Build configuration list for PBXNativeTarget "PostsFeed_TestApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				67D2FAE42518968500657C24 /* Debug */,
