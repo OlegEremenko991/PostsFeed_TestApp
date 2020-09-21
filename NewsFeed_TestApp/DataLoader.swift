@@ -18,9 +18,6 @@ public class DataLoader {
             if let jsonData = data {
                 do {
                     let dataFromJson = try jsonDecoder.decode(JsonData.self, from: jsonData)
-        //            print(dataFromJson.data.items[0].createdAt)
-        //            print(dataFromJson.data.items[0].author?.name)
-        //            print(dataFromJson.data.items[0].contents)
                     parsedData2 = dataFromJson.data.items
                     print("parsing data method: " + "\(parsedData2.count)")
                     DispatchQueue.main.async {

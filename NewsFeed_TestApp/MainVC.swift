@@ -8,14 +8,13 @@
 import UIKit
 
 class MainVC: UIViewController {
-
-    private var postData = [Item]()
     
 // MARK: Private properties
     
+    private var postData = [Item]()
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
-    private let dataArray = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
+    private let activityIndicator = UIActivityIndicatorView()
 
 // MARK: Lifecycle
     
@@ -37,6 +36,11 @@ class MainVC: UIViewController {
         navigationItem.rightBarButtonItem = sortButton
         
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.center = view.center
+        
+        activityIndicator.startAnimating()
     }
     
     private func setupTableView() {
@@ -45,6 +49,7 @@ class MainVC: UIViewController {
         
         tableView.register(FeedCell.self, forCellReuseIdentifier: FeedCell.cellID)
         
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -56,14 +61,16 @@ class MainVC: UIViewController {
         DataLoader().loadPosts { (posts) in
             self.postData = posts
             self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
         }
     }
     
     @objc func sortAction() {
         print("sort button tapped")
+        activityIndicator.startAnimating()
         tableView.reloadData()
+        activityIndicator.stopAnimating()
     }
-
 }
 
 // MARK: UITableViewDataSource
