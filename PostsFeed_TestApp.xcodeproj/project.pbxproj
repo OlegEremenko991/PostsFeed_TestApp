@@ -14,6 +14,7 @@
 		67D2FADF2518968500657C24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67D2FADD2518968500657C24 /* LaunchScreen.storyboard */; };
 		67D2FAF22518A24600657C24 /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAF12518A24600657C24 /* FeedCell.swift */; };
 		67D2FAFE2518BEB900657C24 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FAFD2518BEB900657C24 /* PostVC.swift */; };
+		67D2FB082518D02B00657C24 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FB072518D02B00657C24 /* DataLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		67D2FAE02518968500657C24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		67D2FAF12518A24600657C24 /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		67D2FAFD2518BEB900657C24 /* PostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
+		67D2FB072518D02B00657C24 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				67D2FAD22518968200657C24 /* AppDelegate.swift */,
 				67D2FAD42518968200657C24 /* SceneDelegate.swift */,
+				67D2FB072518D02B00657C24 /* DataLoader.swift */,
 				67D2FAD62518968200657C24 /* MainVC.swift */,
 				67D2FAF12518A24600657C24 /* FeedCell.swift */,
 				67D2FAFD2518BEB900657C24 /* PostVC.swift */,
@@ -141,6 +144,7 @@
 			files = (
 				67D2FAD72518968200657C24 /* MainVC.swift in Sources */,
 				67D2FAD32518968200657C24 /* AppDelegate.swift in Sources */,
+				67D2FB082518D02B00657C24 /* DataLoader.swift in Sources */,
 				67D2FAF22518A24600657C24 /* FeedCell.swift in Sources */,
 				67D2FAD52518968200657C24 /* SceneDelegate.swift in Sources */,
 				67D2FAFE2518BEB900657C24 /* PostVC.swift in Sources */,

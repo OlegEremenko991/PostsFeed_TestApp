@@ -9,13 +9,13 @@ import UIKit
 
 class MainVC: UIViewController {
 
-
+    private var postData = [Item]()
+    
 // MARK: Private properties
     
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
     private let dataArray = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
-    
 
 // MARK: Lifecycle
     
@@ -23,13 +23,14 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         setupView()
         setupTableView()
+        getPosts()
     }
     
 // MARK: Private methods
     
     private func setupView() {
         view.backgroundColor = .white
-        safeArea = view.layoutMarginsGuide // setup safe area
+        safeArea = view.layoutMarginsGuide
         
         navigationItem.title = "Posts Feed"
         let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
@@ -51,11 +52,17 @@ class MainVC: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
+    private func getPosts() {
+        DataLoader().loadPosts { (posts) in
+            self.postData = posts
+            self.tableView.reloadData()
+        }
+    }
+    
     @objc func sortAction() {
-         print("sort button tapped")
+        print("sort button tapped")
         tableView.reloadData()
     }
-
 
 }
 
@@ -63,14 +70,15 @@ class MainVC: UIViewController {
 
 extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
+        return postData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.cellID, for: indexPath) as! FeedCell
-        let post = dataArray[indexPath.row]
-        cell.dateLabel.text = "Some date"
-        cell.authorLabel.text = post
+
+        let post = postData[indexPath.row]
+        cell.dateLabel.text = "\(post.createdAt)"
+        cell.authorLabel.text = "\(post.author?.name ?? "Unknown")"
         return cell
     }
     
@@ -91,10 +99,17 @@ extension MainVC: UITableViewDelegate {
         
         let postVC = PostVC()
         
-        let post = dataArray[indexPath.row]
-        postVC.dateLabel.text = "Date: Some date"
-        postVC.authorLabel.text = "Author: " + post
-        postVC.contentLabel.text = "Content: " + "\(arc4random()) some text"
+        let post = postData[indexPath.row]
+        let contents = post.contents
+        
+        postVC.dateLabel.text = "\(post.createdAt)"
+        postVC.authorLabel.text = "\(post.author?.name ?? "Unknown")"
+        
+        for x in contents {
+            if x.type == "TEXT" {
+                postVC.contentLabel.text = x.data.value
+            }
+        }
         
         navigationController?.pushViewController(postVC, animated: true)
     }

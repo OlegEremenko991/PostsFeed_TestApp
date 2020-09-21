@@ -14,7 +14,7 @@ class PostVC: UIViewController {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.text = "Date"
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +22,7 @@ class PostVC: UIViewController {
     let authorLabel: UILabel = {
         let label = UILabel()
         label.text = "Author"
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -31,7 +31,7 @@ class PostVC: UIViewController {
         let label = UILabel()
         label.text = "Content"
         label.numberOfLines = 0
-        label.textAlignment = .left
+        label.textAlignment = .natural
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,18 +59,20 @@ class PostVC: UIViewController {
         containerView.addSubview(contentLabel)
         view.addSubview(containerView)
         
-        containerView.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
         authorLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
         authorLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        authorLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         contentLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10).isActive = true
         contentLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
