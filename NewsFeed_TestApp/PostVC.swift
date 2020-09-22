@@ -9,27 +9,36 @@ import UIKit
 
 class PostVC: UIViewController {
     
-// MARK: UI elements
+// MARK: Public properties
     
+    var authorImageName = ""
+    
+// MARK: UI elements
+
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "Date"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let authorLabel: UILabel = {
+    let authorNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Author"
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let authorImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     let contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Content"
         label.numberOfLines = 0
         label.textAlignment = .natural
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -48,36 +57,47 @@ class PostVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        
     }
     
     private func setupView() {
         view.backgroundColor = .white
         navigationItem.title = "Post Details"
         
+        if authorImageName != "" {
+            authorImageView.load(url: URL(string: authorImageName)!)
+        }
+        
         containerView.addSubview(dateLabel)
-        containerView.addSubview(authorLabel)
+        containerView.addSubview(authorNameLabel)
+        containerView.addSubview(authorImageView)
         containerView.addSubview(contentLabel)
+        
         view.addSubview(containerView)
         
-        containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
         dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         dateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         dateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
-        authorLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
-        authorLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
-        authorLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        authorNameLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
+        authorNameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        authorNameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        authorNameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        contentLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10).isActive = true
+        authorImageView.topAnchor.constraint(equalTo: authorNameLabel.bottomAnchor, constant: 10).isActive = true
+        authorImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        authorImageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        authorImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        contentLabel.topAnchor.constraint(equalTo: authorImageView.bottomAnchor, constant: 10).isActive = true
         contentLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
-        contentLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         
     }
 

@@ -1,14 +1,12 @@
 //
-//  Author.swift
+//  Photo.swift
 //  PostsFeed_TestApp
 //
 //  Created by Олег Еременко on 22.09.2020.
 //
 
-struct Author: Codable {
+struct Photo: Codable {
+    var type: ExtraType
     var id: String
-    var name: String
-    var photo: Photo?
+    var data: PhotoData
 }
-
-

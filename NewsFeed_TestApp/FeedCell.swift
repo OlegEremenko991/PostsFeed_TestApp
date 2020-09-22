@@ -25,6 +25,7 @@ class FeedCell: UITableViewCell {
     
     let authorLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 2
         label.text = "Author"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false

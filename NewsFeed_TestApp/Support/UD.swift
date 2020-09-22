@@ -10,7 +10,7 @@ class UD {
     
     static let shared = UD()
     
-    var nextPageCursorKey = "nextPageCursorKey" //ключ для единиц измерения
+    var nextPageCursorKey = "nextPageCursorKey" //key for cursor
     
     var nextPageCursor: String {
         get { return UserDefaults.standard.string(forKey: nextPageCursorKey) ?? "" }

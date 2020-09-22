@@ -53,7 +53,7 @@ class MainVC: UIViewController {
         
         tableView.register(FeedCell.self, forCellReuseIdentifier: FeedCell.cellID)
         
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -75,7 +75,7 @@ class MainVC: UIViewController {
         }
     }
     
-    @objc func sortAction() {
+    @objc private func sortAction() {
         print("Sort button tapped")
 
         switch sortedBy {
@@ -96,7 +96,20 @@ class MainVC: UIViewController {
             getPosts(requestType: .notSorted)
             sortedBy = .notSorted
         }
-
+    }
+    
+    private func convertDate(value: Int, short: Bool) -> String {
+        let date = Date.init(timeIntervalSince1970: TimeInterval(value / 1000))
+        let dateFormatter = DateFormatter()
+        if short == true {
+            dateFormatter.timeStyle = DateFormatter.Style.short
+            dateFormatter.dateStyle = DateFormatter.Style.short
+        } else if short == false {
+            dateFormatter.dateFormat = "HH:mm E, d MMM y"
+        }
+        dateFormatter.timeZone = .current
+        let localDate = dateFormatter.string(from: date)
+        return localDate
     }
 }
 
@@ -111,8 +124,8 @@ extension MainVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.cellID, for: indexPath) as! FeedCell
 
         let post = postData[indexPath.row]
-        cell.dateLabel.text = "\(post.createdAt)"
-        cell.authorLabel.text = post.author?.name
+        cell.dateLabel.text = convertDate(value: post.createdAt, short: true)
+        cell.authorLabel.text = post.author?.name ?? "Unknown"
         
         return cell
     }
@@ -123,7 +136,6 @@ extension MainVC: UITableViewDataSource {
             getPosts(requestType: .following, loadmore: true)
         }
     }
-    
     
 }
 
@@ -143,12 +155,16 @@ extension MainVC: UITableViewDelegate {
         let postVC = PostVC()
         
         let post = postData[indexPath.row]
-        let contents = post.contents
+        let content = post.contents
         
-        postVC.dateLabel.text = "\(post.createdAt)"
-        postVC.authorLabel.text = "\(post.author?.name ?? "Unknown")"
+        postVC.dateLabel.text = "Created at: " + convertDate(value: post.createdAt, short: false)
+        postVC.authorNameLabel.text = "Author name: " + "\(post.author?.name ?? "Unknown")"
         
-        for x in contents {
+        if let imageStringURL = post.author?.photo?.data.extraSmall.url {
+            postVC.authorImageName = imageStringURL
+        }
+        
+        for x in content {
             if x.type == "TEXT" {
                 postVC.contentLabel.text = x.data.value
             }
@@ -157,4 +173,3 @@ extension MainVC: UITableViewDelegate {
         navigationController?.pushViewController(postVC, animated: true)
     }
 }
-
