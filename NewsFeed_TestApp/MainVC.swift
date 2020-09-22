@@ -11,19 +11,16 @@ class MainVC: UIViewController {
     
 // MARK: Private properties
     
-    private var postData = [Item]()
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
     private let activityIndicator = UIActivityIndicatorView()
-    private var sortedBy = SortType.notSorted
+    private var postData = [Item]() // data source for tableView
+    private var sortedBy = SortType.notSorted // shows current sort order
 
 // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UD.shared.nextPageCursor = ""
-        
         setupView()
         setupTableView()
         getPosts(requestType: Request.first)
@@ -32,6 +29,7 @@ class MainVC: UIViewController {
 // MARK: Private methods
     
     private func setupView() {
+        UD.shared.nextPageCursor = ""
         view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
         
