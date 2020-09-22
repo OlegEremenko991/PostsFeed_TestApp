@@ -15,6 +15,10 @@ final class DataLoader {
     
 // MARK: Private properties
     
+    private var cursor: String = "" {
+        didSet { UD.shared.nextPageCursor = cursor }
+    }
+    
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
     
 // MARK: Main method
@@ -55,17 +59,17 @@ final class DataLoader {
             
             guard let postDict = try? JSONDecoder().decode(PostDict.self, from: jsonData) else {
                 print("Could not decode json")
-                print("Used this cursor: " + UD.shared.nextPageCursor)
+                print("Used this cursor: " + self.cursor)
                 print("Failed with URL: " + "\(url!.absoluteURL)")
                 print("Cursor cleared. Please scroll up and down to try again.")
-                UD.shared.nextPageCursor = ""
+                self.cursor = ""
                 return
             }
             
             parsedData = postDict.data.items
             
             guard let cursor = postDict.data.cursor else { return }
-            UD.shared.nextPageCursor = cursor
+            self.cursor = cursor
             print("Cursor recieved: " + cursor)
             
             DispatchQueue.main.async {
