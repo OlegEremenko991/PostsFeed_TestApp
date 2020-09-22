@@ -31,8 +31,8 @@ final class DataLoader {
         case .first:
             url = URL(string: defaultURL)
         case .following:
-            if UD.shared.nextPageCursor != "" {
-                url = URL(string: defaultURL + "?after=" + UD.shared.nextPageCursor)
+            if cursor != "" {
+                url = URL(string: defaultURL + "?after=" + cursor)
             } else {
                 url = URL(string: defaultURL)
             }
@@ -58,10 +58,8 @@ final class DataLoader {
             }
             
             guard let postDict = try? JSONDecoder().decode(PostDict.self, from: jsonData) else {
-                print("Could not decode json")
-                print("Used this cursor: " + self.cursor)
-                print("Failed with URL: " + "\(url!.absoluteURL)")
-                print("Cursor cleared. Please scroll up and down to try again.")
+                print("Failed to load posts from URL: " + "\(url!.absoluteURL)")
+                print("Cursor will be reset. Please scroll up and down to get new cursor and try again.")
                 self.cursor = ""
                 return
             }
@@ -70,7 +68,7 @@ final class DataLoader {
             
             guard let cursor = postDict.data.cursor else { return }
             self.cursor = cursor
-            print("Cursor recieved: " + cursor)
+            print("Cursor recieved")
             
             DispatchQueue.main.async {
                 completion(parsedData)

@@ -123,7 +123,7 @@ extension MainVC: UITableViewDataSource {
 
         let post = postData[indexPath.row]
         cell.dateLabel.text = convertDate(value: post.createdAt, short: true)
-        cell.authorLabel.text = post.author?.name ?? "Unknown"
+        cell.authorLabel.text = post.author?.name ?? "Unknown name"
         
         return cell
     }
@@ -131,7 +131,7 @@ extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = postData.count - 1
         if indexPath.row == lastElement {
-            getPosts(requestType: .following, loadmore: true)
+            getPosts(requestType: .following, loadmore: true) // Load more posts when scrolling down
         }
     }
     
