@@ -6,5 +6,5 @@
 //
 
 struct PostDict: Codable {
-    var data: SomeData
+    var data: SomeData?
 }

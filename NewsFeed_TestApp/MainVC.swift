@@ -64,8 +64,10 @@ class MainVC: UIViewController {
         DataLoader.shared.loadPosts(requestType: requestType) { (posts) in
             if loadmore == true {
                 self.postData.append(contentsOf: posts)
+//                print("DataSource appended more! Total is: " + "\(self.postData.count)")
             } else if loadmore == false {
                 self.postData = posts
+//                print("DataSource should be cleared. Total is: " + "\(self.postData.count)")
             }
             
             self.tableView.reloadData()
@@ -94,6 +96,8 @@ class MainVC: UIViewController {
             getPosts(requestType: .notSorted)
             sortedBy = .notSorted
         }
+        
+        showAlertController()
     }
     
     private func convertDate(value: Int, short: Bool) -> String {
@@ -169,5 +173,13 @@ extension MainVC: UITableViewDelegate {
         }
         
         navigationController?.pushViewController(postVC, animated: true)
+    }
+}
+
+extension MainVC: UINavigationControllerDelegate {
+    func showAlertController() {
+        let okAction = UIAlertAction(title: "Ok!", style: .cancel, handler: nil)
+        let alert = AlertService.showAlert(style: .alert, sortType: sortedBy, actions: [okAction], completion: nil)
+        self.navigationController?.present(alert, animated: true, completion: nil)
     }
 }

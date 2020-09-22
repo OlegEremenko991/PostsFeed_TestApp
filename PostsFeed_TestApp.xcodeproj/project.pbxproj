@@ -31,6 +31,8 @@
 		67EA30F0251A28B400F0D7A5 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30EF251A28B400F0D7A5 /* PhotoData.swift */; };
 		67EA30F3251A28FD00F0D7A5 /* PhotoProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30F2251A28FD00F0D7A5 /* PhotoProperties.swift */; };
 		67EA30FA251A2B1000F0D7A5 /* UIImageView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */; };
+		67EA3101251A6C5F00F0D7A5 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA3100251A6C5E00F0D7A5 /* AlertService.swift */; };
+		67EA3104251A6FDC00F0D7A5 /* String_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA3103251A6FDC00F0D7A5 /* String_Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		67EA30EF251A28B400F0D7A5 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		67EA30F2251A28FD00F0D7A5 /* PhotoProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProperties.swift; sourceTree = "<group>"; };
 		67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView_Extension.swift; sourceTree = "<group>"; };
+		67EA3100251A6C5E00F0D7A5 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		67EA3103251A6FDC00F0D7A5 /* String_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +98,6 @@
 			children = (
 				67EA30CE2519E92700F0D7A5 /* App */,
 				67EA30CD2519E90F00F0D7A5 /* Network */,
-				67EA30C42519E44700F0D7A5 /* Enums */,
 				67EA30B02519E31200F0D7A5 /* Models */,
 				67EA30FC251A2B2F00F0D7A5 /* Support */,
 				67D2FAD62518968200657C24 /* MainVC.swift */,
@@ -155,8 +158,11 @@
 		67EA30FC251A2B2F00F0D7A5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				67EA30C42519E44700F0D7A5 /* Enums */,
 				67EA30D8251A0A3C00F0D7A5 /* UD.swift */,
+				67EA3100251A6C5E00F0D7A5 /* AlertService.swift */,
 				67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */,
+				67EA3103251A6FDC00F0D7A5 /* String_Extension.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -234,8 +240,10 @@
 				67D2FAD72518968200657C24 /* MainVC.swift in Sources */,
 				67EA30BF2519E37000F0D7A5 /* ContentData.swift in Sources */,
 				67EA30C62519E45200F0D7A5 /* Request.swift in Sources */,
+				67EA3104251A6FDC00F0D7A5 /* String_Extension.swift in Sources */,
 				67EA30CA2519E46300F0D7A5 /* SortType.swift in Sources */,
 				67EA30B92519E35100F0D7A5 /* Item.swift in Sources */,
+				67EA3101251A6C5F00F0D7A5 /* AlertService.swift in Sources */,
 				67EA30E2251A0E7E00F0D7A5 /* Stats.swift in Sources */,
 				67EA30F0251A28B400F0D7A5 /* PhotoData.swift in Sources */,
 				67EA30B22519E32000F0D7A5 /* PostDict.swift in Sources */,
