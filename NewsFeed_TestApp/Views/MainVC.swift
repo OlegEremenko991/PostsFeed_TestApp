@@ -49,8 +49,6 @@ final class MainVC: UIViewController {
     private func setupInitialData() {
         postData = UDforCache.shared.postsArray
         sortedBy = SortType(rawValue: UDforCache.shared.currentSortType)!
-        print("UD has sort type: " + "\(UDforCache.shared.currentSortType)")
-        print("ViewController has sort type: " + "\(sortedBy)")
     }
     
     // If data source for tableView is empty, perform request
