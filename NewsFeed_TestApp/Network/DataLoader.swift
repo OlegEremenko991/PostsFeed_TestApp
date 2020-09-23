@@ -20,7 +20,6 @@ final class DataLoader {
     }
     
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
-    private var currentURLString = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
     private var sortBy = SortType.notSorted
     
 // MARK: Main method
@@ -65,13 +64,10 @@ final class DataLoader {
             url = URL(string: defaultURL)
         }
         
-        guard let safeURL = url else {
-            print("URL is nil")
-            return
-        }
+        guard let safeURL = url else { return }
         
         let dataTask = URLSession.shared.dataTask(with: safeURL) { (data, response, error) in
-            guard let jsonData = data, data != nil else {
+            guard let jsonData = data, error == nil else {
                 print("JsonData is nil")
                 return
             }
@@ -101,6 +97,10 @@ final class DataLoader {
             print("JSON data parsed successfully")
         }
         dataTask.resume()
+    }
+    
+    private func parseData(from data: Data) {
+        
     }
 
 }
