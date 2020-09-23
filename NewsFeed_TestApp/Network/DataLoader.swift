@@ -22,7 +22,7 @@ final class DataLoader {
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
     private var sortBy = SortType.notSorted
     
-// MARK: Load posts
+// MARK: Main method for loading and parsing data
     
     func loadPosts(requestType: Request, _ completion: @escaping ([Item]) -> Void) {
         var url = URL(string: "")
@@ -43,23 +43,19 @@ final class DataLoader {
                     url = URL(string: defaultURL + "?after=" + cursor)
                 }
             } else {
-                url = URL(string: defaultURL)
+                return
             }
         case .sortedByPopularity:
-            cursor = ""
-            sortBy = .mostPopular
+            supportSetup(sort: .mostPopular)
             url = URL(string: defaultURL + "?orderBy=mostPopular")
         case .sortedByComments:
-            cursor = ""
-            sortBy = .mostCommented
+            supportSetup(sort: .mostCommented)
             url = URL(string: defaultURL + "?orderBy=mostCommented")
         case .sortedByDate:
-            cursor = ""
-            sortBy = .createdAt
+            supportSetup(sort: .createdAt)
             url = URL(string: defaultURL + "?orderBy=createdAt")
         case .notSorted:
-            cursor = ""
-            sortBy = .notSorted
+            supportSetup(sort: .notSorted)
             url = URL(string: defaultURL)
         }
         
@@ -95,6 +91,13 @@ final class DataLoader {
             print("JSON data parsed successfully")
         }
         dataTask.resume()
+    }
+    
+// MARK: Support method
+    
+    private func supportSetup(sort: SortType) {
+        cursor = "" // clear cursor
+        sortBy = sort // set sort type
     }
 
 }
