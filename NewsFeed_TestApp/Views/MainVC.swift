@@ -14,7 +14,7 @@ final class MainVC: UIViewController {
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
     private let activityIndicator = UIActivityIndicatorView()
-    private var postData: [Item] = []{ // data source for tableView
+    private var postData: [Item] = [] { // data source for tableView
         didSet { UDforCache.shared.postsArray = postData }
     }
     private var sortedBy = SortType.notSorted // shows current sort order
@@ -61,11 +61,15 @@ final class MainVC: UIViewController {
         }
     }
     
+    // Setup nav.item
+    
     private func setupNavigationItem() {
         let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
         navigationItem.rightBarButtonItem = sortButton
         navigationItem.title = "Posts Feed"
     }
+    
+    // Setup table view
     
     private func setupTableView() {
         tableView.dataSource = self
@@ -80,6 +84,8 @@ final class MainVC: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    // Main method to request posts from DataLoader
     
     private func getPosts(requestType: Request, sort: SortType, loadmore: Bool = false) {
         
@@ -96,6 +102,8 @@ final class MainVC: UIViewController {
             self.activityIndicator.stopAnimating()
         }
     }
+    
+    // Sort action for bar button item
     
     @objc fileprivate func sortAction() {
         print("Sort button tapped")
