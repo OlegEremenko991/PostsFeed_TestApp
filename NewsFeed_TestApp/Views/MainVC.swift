@@ -61,7 +61,7 @@ final class MainVC: UIViewController {
         }
     }
     
-    // Setup nav.item
+    // Setup navigation item
     
     private func setupNavigationItem() {
         let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
@@ -105,7 +105,7 @@ final class MainVC: UIViewController {
     
     // Sort action for bar button item
     
-    @objc fileprivate func sortAction() {
+    @objc private func sortAction() {
         print("Sort button tapped")
 
         switch sortedBy {
