@@ -9,5 +9,4 @@ struct Item: Codable {
     var contents: [Content]
     var createdAt: Int
     var author: Author?
-    var stats: Stats
 }

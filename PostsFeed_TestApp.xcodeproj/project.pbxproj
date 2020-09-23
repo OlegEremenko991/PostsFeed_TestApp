@@ -23,9 +23,7 @@
 		67EA30C22519E38500F0D7A5 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30C12519E38500F0D7A5 /* Author.swift */; };
 		67EA30C62519E45200F0D7A5 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30C52519E45200F0D7A5 /* Request.swift */; };
 		67EA30CA2519E46300F0D7A5 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30C92519E46300F0D7A5 /* SortType.swift */; };
-		67EA30D9251A0A3C00F0D7A5 /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30D8251A0A3C00F0D7A5 /* UD.swift */; };
-		67EA30E2251A0E7E00F0D7A5 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30E1251A0E7E00F0D7A5 /* Stats.swift */; };
-		67EA30E5251A0EAC00F0D7A5 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30E4251A0EAC00F0D7A5 /* Comments.swift */; };
+		67EA30D9251A0A3C00F0D7A5 /* UDforCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30D8251A0A3C00F0D7A5 /* UDforCache.swift */; };
 		67EA30E9251A287B00F0D7A5 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30E8251A287B00F0D7A5 /* Photo.swift */; };
 		67EA30ED251A28AE00F0D7A5 /* ExtraType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30EC251A28AE00F0D7A5 /* ExtraType.swift */; };
 		67EA30F0251A28B400F0D7A5 /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30EF251A28B400F0D7A5 /* PhotoData.swift */; };
@@ -54,9 +52,7 @@
 		67EA30C12519E38500F0D7A5 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
 		67EA30C52519E45200F0D7A5 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		67EA30C92519E46300F0D7A5 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
-		67EA30D8251A0A3C00F0D7A5 /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
-		67EA30E1251A0E7E00F0D7A5 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
-		67EA30E4251A0EAC00F0D7A5 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		67EA30D8251A0A3C00F0D7A5 /* UDforCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDforCache.swift; sourceTree = "<group>"; };
 		67EA30E8251A287B00F0D7A5 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		67EA30EC251A28AE00F0D7A5 /* ExtraType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraType.swift; sourceTree = "<group>"; };
 		67EA30EF251A28B400F0D7A5 /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
@@ -97,17 +93,25 @@
 			isa = PBXGroup;
 			children = (
 				67EA30CE2519E92700F0D7A5 /* App */,
+				67E9E9DA251B6E0000FBC39D /* Views */,
 				67EA30CD2519E90F00F0D7A5 /* Network */,
-				67EA30B02519E31200F0D7A5 /* Models */,
 				67EA30FC251A2B2F00F0D7A5 /* Support */,
-				67D2FAD62518968200657C24 /* MainVC.swift */,
-				67D2FAF12518A24600657C24 /* FeedCell.swift */,
-				67D2FAFD2518BEB900657C24 /* PostVC.swift */,
+				67EA30B02519E31200F0D7A5 /* Models */,
 				67D2FADB2518968500657C24 /* Assets.xcassets */,
 				67D2FADD2518968500657C24 /* LaunchScreen.storyboard */,
 				67D2FAE02518968500657C24 /* Info.plist */,
 			);
 			path = NewsFeed_TestApp;
+			sourceTree = "<group>";
+		};
+		67E9E9DA251B6E0000FBC39D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				67D2FAD62518968200657C24 /* MainVC.swift */,
+				67D2FAF12518A24600657C24 /* FeedCell.swift */,
+				67D2FAFD2518BEB900657C24 /* PostVC.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		67EA30B02519E31200F0D7A5 /* Models */ = {
@@ -123,25 +127,15 @@
 				67EA30EC251A28AE00F0D7A5 /* ExtraType.swift */,
 				67EA30EF251A28B400F0D7A5 /* PhotoData.swift */,
 				67EA30F2251A28FD00F0D7A5 /* PhotoProperties.swift */,
-				67EA30E1251A0E7E00F0D7A5 /* Stats.swift */,
-				67EA30E4251A0EAC00F0D7A5 /* Comments.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		67EA30C42519E44700F0D7A5 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				67EA30C52519E45200F0D7A5 /* Request.swift */,
-				67EA30C92519E46300F0D7A5 /* SortType.swift */,
-			);
-			path = Enums;
 			sourceTree = "<group>";
 		};
 		67EA30CD2519E90F00F0D7A5 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				67D2FB072518D02B00657C24 /* DataLoader.swift */,
+				67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -158,10 +152,10 @@
 		67EA30FC251A2B2F00F0D7A5 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				67EA30C42519E44700F0D7A5 /* Enums */,
-				67EA30D8251A0A3C00F0D7A5 /* UD.swift */,
+				67EA30C52519E45200F0D7A5 /* Request.swift */,
+				67EA30C92519E46300F0D7A5 /* SortType.swift */,
+				67EA30D8251A0A3C00F0D7A5 /* UDforCache.swift */,
 				67EA3100251A6C5E00F0D7A5 /* AlertService.swift */,
-				67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */,
 				67EA3103251A6FDC00F0D7A5 /* String_Extension.swift */,
 			);
 			path = Support;
@@ -244,13 +238,11 @@
 				67EA30CA2519E46300F0D7A5 /* SortType.swift in Sources */,
 				67EA30B92519E35100F0D7A5 /* Item.swift in Sources */,
 				67EA3101251A6C5F00F0D7A5 /* AlertService.swift in Sources */,
-				67EA30E2251A0E7E00F0D7A5 /* Stats.swift in Sources */,
 				67EA30F0251A28B400F0D7A5 /* PhotoData.swift in Sources */,
 				67EA30B22519E32000F0D7A5 /* PostDict.swift in Sources */,
 				67EA30BC2519E36200F0D7A5 /* Content.swift in Sources */,
-				67EA30E5251A0EAC00F0D7A5 /* Comments.swift in Sources */,
 				67D2FAD32518968200657C24 /* AppDelegate.swift in Sources */,
-				67EA30D9251A0A3C00F0D7A5 /* UD.swift in Sources */,
+				67EA30D9251A0A3C00F0D7A5 /* UDforCache.swift in Sources */,
 				67EA30C22519E38500F0D7A5 /* Author.swift in Sources */,
 				67EA30F3251A28FD00F0D7A5 /* PhotoProperties.swift in Sources */,
 				67EA30E9251A287B00F0D7A5 /* Photo.swift in Sources */,

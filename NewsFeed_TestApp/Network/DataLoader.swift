@@ -16,46 +16,46 @@ final class DataLoader {
 // MARK: Private properties
     
     private var cursor: String = "" {
-        didSet { UD.shared.nextPageCursor = cursor }
+        didSet { UDforCache.shared.nextPageCursor = cursor }
     }
     
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
-    private var sortBy = SortType.notSorted
+//    private var sortBy = SortType.notSorted
     
 // MARK: Main method for loading and parsing data
     
-    func loadPosts(requestType: Request, _ completion: @escaping ([Item]) -> Void) {
+    func loadPosts(requestType: Request, sortBy: SortType, _ completion: @escaping ([Item]) -> Void) {
         var url = URL(string: "")
         var parsedData = [Item]()
         switch requestType {
         case .first:
             url = URL(string: defaultURL)
         case .following:
-            if cursor != "" {
+            if UDforCache.shared.nextPageCursor != "" {
                 switch sortBy {
                 case .createdAt:
-                    url = URL(string: defaultURL + "?orderBy=createdAt" + "&after=" + cursor)
+                    url = URL(string: defaultURL + "?orderBy=createdAt" + "&after=" + UDforCache.shared.nextPageCursor)
                 case .mostPopular:
-                    url = URL(string: defaultURL + "?orderBy=mostPopular" + "&after=" + cursor)
+                    url = URL(string: defaultURL + "?orderBy=mostPopular" + "&after=" + UDforCache.shared.nextPageCursor)
                 case .mostCommented:
-                    url = URL(string: defaultURL + "?orderBy=mostCommented" + "&after=" + cursor)
+                    url = URL(string: defaultURL + "?orderBy=mostCommented" + "&after=" + UDforCache.shared.nextPageCursor)
                 case .notSorted:
-                    url = URL(string: defaultURL + "?after=" + cursor)
+                    url = URL(string: defaultURL + "?after=" + UDforCache.shared.nextPageCursor)
                 }
             } else {
                 return
             }
         case .sortedByPopularity:
-            supportSetup(sort: .mostPopular)
+            cursor = ""
             url = URL(string: defaultURL + "?orderBy=mostPopular")
         case .sortedByComments:
-            supportSetup(sort: .mostCommented)
+            cursor = ""
             url = URL(string: defaultURL + "?orderBy=mostCommented")
         case .sortedByDate:
-            supportSetup(sort: .createdAt)
+            cursor = ""
             url = URL(string: defaultURL + "?orderBy=createdAt")
         case .notSorted:
-            supportSetup(sort: .notSorted)
+            cursor = ""
             url = URL(string: defaultURL)
         }
         
@@ -71,6 +71,7 @@ final class DataLoader {
                 let postDict = try JSONDecoder().decode(PostDict.self, from: jsonData)
                 guard let dataToConsider = postDict.data else {
                     print("Could not decode JSON")
+                    print("Failed to load posts from URL: " + "\(url!.absoluteURL)")
                     return
                 }
                 parsedData = dataToConsider.items
@@ -79,10 +80,6 @@ final class DataLoader {
                 print("Cursor recieved: " + cursor)
             } catch {
                 print(error)
-                print("Failed to load posts from URL: " + "\(url!.absoluteURL)")
-                print("Cursor will be reset. Please scroll up and down to get new cursor and try again.")
-                self.cursor = ""
-                parsedData = []
                 return
             }
             DispatchQueue.main.async {
@@ -95,9 +92,9 @@ final class DataLoader {
     
 // MARK: Support method
     
-    private func supportSetup(sort: SortType) {
-        cursor = "" // clear cursor
-        sortBy = sort // set sort type
-    }
+//    private func supportSetup(sort: SortType) {
+//        cursor = "" // clear cursor
+//        sortBy = sort // set sort type
+//    }
 
 }

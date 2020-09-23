@@ -7,23 +7,27 @@
 
 import UIKit
 
-class MainVC: UIViewController {
+final class MainVC: UIViewController {
     
 // MARK: Private properties
     
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
     private let activityIndicator = UIActivityIndicatorView()
-    private var postData = [Item]() // data source for tableView
+    private var postData: [Item] = []{ // data source for tableView
+        didSet { UDforCache.shared.postsArray = postData }
+    }
     private var sortedBy = SortType.notSorted // shows current sort order
 
 // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupInitialData()
         setupView()
         setupTableView()
-        getPosts(requestType: Request.first)
+        performInitialPostsLoad()
     }
     
 // MARK: Private methods
@@ -38,6 +42,23 @@ class MainVC: UIViewController {
         activityIndicator.center = view.center
         
         setupNavigationItem()
+    }
+    
+    // Set data source and sort type from UserDefaults
+    
+    private func setupInitialData() {
+        postData = UDforCache.shared.postsArray
+        sortedBy = SortType(rawValue: UDforCache.shared.currentSortType)!
+        print("UD has sort type: " + "\(UDforCache.shared.currentSortType)")
+        print("ViewController has sort type: " + "\(sortedBy)")
+    }
+    
+    // If data source for tableView is empty, perform request
+    
+    private func performInitialPostsLoad() {
+        if postData.isEmpty {
+            getPosts(requestType: Request.first, sort: .notSorted)
+        }
     }
     
     private func setupNavigationItem() {
@@ -60,15 +81,15 @@ class MainVC: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    private func getPosts(requestType: Request, loadmore: Bool = false) {
+    private func getPosts(requestType: Request, sort: SortType, loadmore: Bool = false) {
+        
         activityIndicator.startAnimating()
-        DataLoader.shared.loadPosts(requestType: requestType) { (posts) in
-            if loadmore == true {
+        
+        DataLoader.shared.loadPosts(requestType: requestType, sortBy: sort) { (posts) in
+            if loadmore {
                 self.postData.append(contentsOf: posts)
-//                print("DataSource appended more! Total is: " + "\(self.postData.count)")
-            } else if loadmore == false {
+            } else {
                 self.postData = posts
-//                print("DataSource should be cleared. Total is: " + "\(self.postData.count)")
             }
             
             self.tableView.reloadData()
@@ -76,30 +97,32 @@ class MainVC: UIViewController {
         }
     }
     
-    @objc private func sortAction() {
+    @objc fileprivate func sortAction() {
         print("Sort button tapped")
 
         switch sortedBy {
         case .notSorted:
-            print("Sorting by createdAt...")
-            getPosts(requestType: .sortedByDate)
+            getPosts(requestType: .sortedByDate, sort: .createdAt)
             sortedBy = .createdAt
         case .createdAt:
-            print("Sorting by mostPopular...")
-            getPosts(requestType: .sortedByPopularity)
+            getPosts(requestType: .sortedByPopularity, sort: .mostPopular)
             sortedBy = .mostPopular
         case .mostPopular:
-            print("Sorting by mostCommented...")
-            getPosts(requestType: .sortedByComments)
+            getPosts(requestType: .sortedByComments, sort: .mostCommented)
             sortedBy = .mostCommented
         case .mostCommented:
-            print("Not sorting at all")
-            getPosts(requestType: .notSorted)
+            getPosts(requestType: .notSorted, sort: .notSorted)
             sortedBy = .notSorted
         }
         
+        print("Sorting by: " + "\(sortedBy)")
+        print("VC has sort type: " + "\(sortedBy)")
+        
+        UDforCache.shared.currentSortType = sortedBy.rawValue
         showAlertController()
     }
+    
+    // Convert date from UNIX to Date
     
     private func convertDate(value: Int, short: Bool) -> String {
         let date = Date.init(timeIntervalSince1970: TimeInterval(value / 1000))
@@ -128,7 +151,7 @@ extension MainVC: UITableViewDataSource {
 
         let post = postData[indexPath.row]
         cell.dateLabel.text = convertDate(value: post.createdAt, short: true)
-        cell.authorLabel.text = post.author?.name ?? "Unknown name"
+        cell.authorLabel.text = post.author?.name ?? "No name"
         
         return cell
     }
@@ -136,10 +159,9 @@ extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = postData.count - 1
         if indexPath.row == lastElement {
-            getPosts(requestType: .following, loadmore: true) // Load more posts when scrolling down
+            getPosts(requestType: .following, sort: sortedBy, loadmore: true) // Load more posts when scrolling down
         }
     }
-    
 }
 
 // MARK: UITableViewDelegate
@@ -153,9 +175,9 @@ extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // MARK: Prepare data for PostVC
-        
         let postVC = PostVC()
+        
+        // Prepare data for PostVC
         
         let post = postData[indexPath.row]
         let content = post.contents
@@ -177,10 +199,12 @@ extension MainVC: UITableViewDelegate {
     }
 }
 
+// MARK: UINavigationControllerDelegate
+
 extension MainVC: UINavigationControllerDelegate {
     func showAlertController() {
         let okAction = UIAlertAction(title: "Ok!", style: .cancel, handler: nil)
-        let alert = AlertService.showAlert(style: .alert, sortType: sortedBy, actions: [okAction], completion: nil)
+        let alert = AlertService.showAlert(style: .alert, sortType: sortedBy, actions: [okAction])
         self.navigationController?.present(alert, animated: true, completion: nil)
     }
 }

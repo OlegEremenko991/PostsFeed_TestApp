@@ -8,9 +8,11 @@
 import UIKit
 
 final class AlertService {
-    static func showAlert(style: UIAlertController.Style, sortType: SortType, actions: [UIAlertAction] = [UIAlertAction(title: "OK", style: .default, handler: nil)], completion:(() -> Void)? = nil) -> UIAlertController {
+    static func showAlert(style: UIAlertController.Style, sortType: SortType, actions: [UIAlertAction]) -> UIAlertController {
+        
         var title = ""
         let message = "Data source has been loaded from scratch"
+        
         switch sortType {
         case .notSorted:
             title = "Not sorted at all"

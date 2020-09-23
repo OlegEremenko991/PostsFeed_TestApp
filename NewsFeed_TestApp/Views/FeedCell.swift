@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedCell: UITableViewCell {
+final class FeedCell: UITableViewCell {
     
 // MARK: Public properties
 
