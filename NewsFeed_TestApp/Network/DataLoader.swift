@@ -22,12 +22,11 @@ final class DataLoader {
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
     private var sortBy = SortType.notSorted
     
-// MARK: Main method
+// MARK: Load posts
     
     func loadPosts(requestType: Request, _ completion: @escaping ([Item]) -> Void) {
-        var parsedData = [Item]()
         var url = URL(string: "")
-        
+        var parsedData = [Item]()
         switch requestType {
         case .first:
             url = URL(string: defaultURL)
@@ -68,14 +67,14 @@ final class DataLoader {
         
         let dataTask = URLSession.shared.dataTask(with: safeURL) { (data, response, error) in
             guard let jsonData = data, error == nil else {
-                print("JsonData is nil")
+                print("JSON data is nil")
                 return
             }
             
             do {
                 let postDict = try JSONDecoder().decode(PostDict.self, from: jsonData)
                 guard let dataToConsider = postDict.data else {
-                    print("Data from JSON is NULL")
+                    print("Could not decode JSON")
                     return
                 }
                 parsedData = dataToConsider.items
@@ -90,17 +89,12 @@ final class DataLoader {
                 parsedData = []
                 return
             }
-            
             DispatchQueue.main.async {
                 completion(parsedData)
             }
             print("JSON data parsed successfully")
         }
         dataTask.resume()
-    }
-    
-    private func parseData(from data: Data) {
-        
     }
 
 }
