@@ -29,20 +29,21 @@ class MainVC: UIViewController {
 // MARK: Private methods
     
     private func setupView() {
-        UD.shared.nextPageCursor = ""
-        view.backgroundColor = .white
         safeArea = view.layoutMarginsGuide
         
-        navigationItem.title = "Posts Feed"
-        
-        let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
-        navigationItem.rightBarButtonItem = sortButton
-        
+        view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
         
         activityIndicator.center = view.center
         
+        setupNavigationItem()
+    }
+    
+    private func setupNavigationItem() {
+        let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
+        navigationItem.rightBarButtonItem = sortButton
+        navigationItem.title = "Posts Feed"
     }
     
     private func setupTableView() {
