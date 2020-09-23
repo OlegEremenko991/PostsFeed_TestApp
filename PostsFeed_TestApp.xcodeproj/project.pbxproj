@@ -76,7 +76,7 @@
 		67D2FAC62518968200657C24 = {
 			isa = PBXGroup;
 			children = (
-				67D2FAD12518968200657C24 /* NewsFeed_TestApp */,
+				67D2FAD12518968200657C24 /* PostsFeed_TestApp */,
 				67D2FAD02518968200657C24 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -89,7 +89,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		67D2FAD12518968200657C24 /* NewsFeed_TestApp */ = {
+		67D2FAD12518968200657C24 /* PostsFeed_TestApp */ = {
 			isa = PBXGroup;
 			children = (
 				67EA30CE2519E92700F0D7A5 /* App */,
@@ -98,11 +98,12 @@
 				67EA30FC251A2B2F00F0D7A5 /* Support */,
 				67EA30B02519E31200F0D7A5 /* Models */,
 				67D2FADB2518968500657C24 /* Assets.xcassets */,
-				67D2FADD2518968500657C24 /* LaunchScreen.storyboard */,
 				67D2FAE02518968500657C24 /* Info.plist */,
+				67D2FADD2518968500657C24 /* LaunchScreen.storyboard */,
 			);
-			path = NewsFeed_TestApp;
+			path = PostsFeed_TestApp;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		67E9E9DA251B6E0000FBC39D /* Views */ = {
 			isa = PBXGroup;
@@ -392,7 +393,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3PHS45582J;
-				INFOPLIST_FILE = NewsFeed_TestApp/Info.plist;
+				INFOPLIST_FILE = PostsFeed_TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,7 +412,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3PHS45582J;
-				INFOPLIST_FILE = NewsFeed_TestApp/Info.plist;
+				INFOPLIST_FILE = PostsFeed_TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
