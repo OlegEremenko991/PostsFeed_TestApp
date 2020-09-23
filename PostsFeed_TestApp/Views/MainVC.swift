@@ -14,10 +14,14 @@ final class MainVC: UIViewController {
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
     private let activityIndicator = UIActivityIndicatorView()
-    private var postData: [Item] = [] { // data source for tableView
+    
+    // Data source for tableView
+    private var postData: [Item] = [] {
         didSet { UDforCache.shared.postsArray = postData }
     }
-    private var sortedBy = SortType.notSorted // shows current sort order
+    
+    // Shows current sort order
+    private var sortedBy = SortType.notSorted
 
 // MARK: Lifecycle
     
