@@ -1,6 +1,5 @@
 # Posts feed
 This is a test task.
-The app uses Realm to store your data and shows how many days passed after something happened in your life.
 
 ## Main requirements
 
