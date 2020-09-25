@@ -8,7 +8,6 @@
 extension String {
     
     // replace symbols
-    
     func withReplacedCharacters(_ oldChar: String, by newChar: String) -> String {
         let newStr = self.replacingOccurrences(of: oldChar, with: newChar, options: .literal, range: nil)
         return newStr

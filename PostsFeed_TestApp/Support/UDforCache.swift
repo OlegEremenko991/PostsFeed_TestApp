@@ -4,15 +4,22 @@
 //
 //  Created by Олег Еременко on 22.09.2020.
 //
+
 import Foundation
 
 final class UDforCache {
 
+// MARK: Singleton
+    
     static let shared = UDforCache()
+    
+// MARK: Private properties
     
     private let nextPageCursorKey = "nextPageCursorKey" //key for cursor
     private let postsArrayKey = "postsArrayKey" // key for posts array
     private let sortTypeKey = "sortTypeKey" // key for current sort type
+    
+// MARK: Public properties
     
     var nextPageCursor: String {
         get { return UserDefaults.standard.string(forKey: nextPageCursorKey) ?? "" }
