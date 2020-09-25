@@ -89,12 +89,5 @@ final class DataLoader {
         }
         dataTask.resume()
     }
-    
-// MARK: Support method
-    
-//    private func supportSetup(sort: SortType) {
-//        cursor = "" // clear cursor
-//        sortBy = sort // set sort type
-//    }
 
 }
