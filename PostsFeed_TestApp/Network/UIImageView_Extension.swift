@@ -9,18 +9,19 @@ import UIKit
 
 extension UIImageView {
     
-    // Load image from URL
+    // Load image from URL on background thread
     
     func load(url: URL) {
-        DispatchQueue.main.async { [weak self] in
-            do {
-                let data = try Data(contentsOf: url)
-                    if let image = UIImage(data: data) {
-                        self?.image = image
-                    }
-            } catch {
-                print(error)
-                self?.image = UIImage(systemName: "person")
+        let queue = DispatchQueue.global(qos: .utility)
+        queue.async {
+            if let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: data)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.image = UIImage(systemName: "person")
+                }
             }
         }
     }
