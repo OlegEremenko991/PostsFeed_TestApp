@@ -62,6 +62,8 @@ final class PostVC: UIViewController {
         
     }
     
+// MARK: Private methods
+    
     private func setupView() {
         view.backgroundColor = .white
         navigationItem.title = "Post Details"

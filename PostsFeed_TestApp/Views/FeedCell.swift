@@ -43,7 +43,16 @@ final class FeedCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        setupView()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    // MARK: Private methods
+    
+    private func setupView() {
         containerView.addSubview(dateLabel)
         containerView.addSubview(authorLabel)
         contentView.addSubview(containerView)
@@ -63,10 +72,6 @@ final class FeedCell: UITableViewCell {
         authorLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 15).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         authorLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 
 }
