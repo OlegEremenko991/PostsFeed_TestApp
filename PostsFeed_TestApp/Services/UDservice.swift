@@ -7,9 +7,7 @@
 
 import Foundation
 
-final class UDservice {
-
-// MARK: Singleton
+public final class UDservice {
     
     static let shared = UDservice()
     
