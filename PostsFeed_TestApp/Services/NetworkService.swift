@@ -7,11 +7,11 @@
 
 import UIKit
 
-final class DataLoader {
+final class NetworkService {
     
 // MARK: Singleton
     
-    static let shared = DataLoader()
+    static let shared = NetworkService()
     
 // MARK: Private properties
     

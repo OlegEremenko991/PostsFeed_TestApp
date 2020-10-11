@@ -91,7 +91,7 @@ final class MainVC: UIViewController {
         
         activityIndicator.startAnimating()
     
-        DataLoader.shared.loadPosts(sort: sort, loadMore: loadmore) { result in
+        NetworkService.shared.loadPosts(sort: sort, loadMore: loadmore) { result in
             switch result {
             case .success(let data):
                 if loadmore {
