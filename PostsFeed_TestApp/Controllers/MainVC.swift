@@ -16,13 +16,11 @@ final class MainVC: UIViewController {
     private var alert: UIAlertController?
     private let activityIndicator = UIActivityIndicatorView()
     
-    // Data source for tableView
-    private var postData: [Item] = [] {
+    private var postData: [Item] = [] { // Data source for tableView
         didSet { UDservice.shared.postsArray = postData }
     }
     
-    // Current sort order
-    private var sortedBy: SortType?
+    private var sortedBy: SortType? // current sort order
 
 // MARK: Lifecycle
     
@@ -84,9 +82,7 @@ final class MainVC: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
-    // Main method to request posts from NetworkService
-    
+        
     private func getPosts(sort: SortType? = nil, loadmore: Bool = false) {
         
         activityIndicator.startAnimating()
@@ -114,11 +110,7 @@ final class MainVC: UIViewController {
         
     }
     
-    // Sort action for bar button item
-    
     @objc private func sortAction() {
-        print("Sort button tapped")
-        
         switch sortedBy {
         case .notSorted:
             getPosts(sort: .createdAt)
@@ -136,9 +128,6 @@ final class MainVC: UIViewController {
             getPosts(sort: .createdAt)
             sortedBy = .createdAt
         }
-        
-        print("Sorting by: " + "\(sortedBy!)")
-        print("VC has sort type: " + "\(sortedBy!)")
         
         guard let sortedBy = sortedBy else { return }
         UDservice.shared.currentSortType = sortedBy.rawValue
@@ -159,6 +148,24 @@ final class MainVC: UIViewController {
         dateFormatter.timeZone = .current
         let localDate = dateFormatter.string(from: date)
         return localDate
+    }
+    
+    private func showAlertController(message: String? = nil, error: Bool) {
+        guard alert == nil else { return } // Prevent from showing multiple alert controllers
+        
+        let okAction = UIAlertAction(title: "Ok", style: .cancel) { _ in
+            self.alert = nil
+        }
+        
+        if error {
+            alert = AlertService.showAlert(style: .alert, sortType: nil, message: message, actions: [okAction])
+        } else {
+            guard let sortedBy = sortedBy else { return }
+            alert = AlertService.showAlert(style: .alert, sortType: sortedBy, message: message, actions: [okAction])
+        }
+        
+        guard let alert = alert else { return }
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -220,26 +227,5 @@ extension MainVC: UITableViewDelegate {
             }
         }
         navigationController?.pushViewController(postVC, animated: true)
-    }
-}
-
-// MARK: UINavigationControllerDelegate
-
-extension MainVC: UINavigationControllerDelegate {
-    func showAlertController(message: String? = nil, error: Bool) {
-        
-        // Prevent from showing multiple alert controllers
-        guard alert == nil else { return }
-        let okAction = UIAlertAction(title: "Ok", style: .cancel) { _ in
-            self.alert = nil
-        }
-        if error {
-            alert = AlertService.showAlert(style: .alert, sortType: nil, message: message, actions: [okAction])
-        } else {
-            guard let sortedBy = sortedBy else { return }
-            alert = AlertService.showAlert(style: .alert, sortType: sortedBy, message: message, actions: [okAction])
-        }
-        guard let alert = alert else { return }
-        self.navigationController?.present(alert, animated: true, completion: nil)
     }
 }
