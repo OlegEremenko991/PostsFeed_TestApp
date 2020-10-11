@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ErrorModel: String, Error {
+enum ErrorType: String, Error {
     case decodingError = "Could not decode JSON"
     case requestFailed = "The request failed, check your Internet connection"
     case invalidData = "The data is invalid"

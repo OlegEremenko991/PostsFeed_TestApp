@@ -9,7 +9,7 @@ import UIKit
 
 public final class NetworkService {
     
-    static func loadPosts(sort: SortType? = nil, loadMore: Bool? = nil, completion: @escaping (Result<[Item], ErrorModel>) -> ()) {
+    static func loadPosts(sort: SortType? = nil, loadMore: Bool? = nil, completion: @escaping (Result<[Item], ErrorType>) -> ()) {
         let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
         var requestURL: URL?
         
