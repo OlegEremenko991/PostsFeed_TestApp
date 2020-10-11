@@ -13,7 +13,7 @@ This is a test task.
 * To get more pages you need to specify "cursor"-parameter which was recieved from previous request
 * You can keep loading pages while "cursor" is not nil.
 4. Create a screen with posts feed
-5. Load new posts when user scrolls to the last post
+5. Load new posts (more pages) when user scrolls to the last post
 6. Add a button to sort posts (by date, by comments and by popularity)
 7. All UI elements must be written in code, without storyboard (the main goal is to show basic information from JSON)
 8. Open new screen when user taps on post and show some details there (date, author, text)
