@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class UDforCache {
+final class UDservice {
 
 // MARK: Singleton
     
-    static let shared = UDforCache()
+    static let shared = UDservice()
     
 // MARK: Private properties
     

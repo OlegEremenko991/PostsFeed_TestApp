@@ -16,78 +16,58 @@ final class DataLoader {
 // MARK: Private properties
     
     private var cursor: String = "" {
-        didSet { UDforCache.shared.nextPageCursor = cursor }
+        didSet { UDservice.shared.nextPageCursor = cursor }
     }
-    
+    private var requestURL: URL?
     private let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
-//    private var sortBy = SortType.notSorted
     
 // MARK: Main method for loading and parsing data
     
-    func loadPosts(requestType: Request, sortBy: SortType, _ completion: @escaping ([Item]) -> Void) {
-        var url = URL(string: "")
+    func loadPosts(sort: SortType? = nil, loadMore: Bool? = nil, completion: @escaping (Result<[Item], ErrorModel>) -> ()) {
         var parsedData = [Item]()
-        switch requestType {
-        case .first:
-            url = URL(string: defaultURL)
-        case .following:
-            if UDforCache.shared.nextPageCursor != "" {
-                switch sortBy {
-                case .createdAt:
-                    url = URL(string: defaultURL + "?orderBy=createdAt" + "&after=" + UDforCache.shared.nextPageCursor)
-                case .mostPopular:
-                    url = URL(string: defaultURL + "?orderBy=mostPopular" + "&after=" + UDforCache.shared.nextPageCursor)
-                case .mostCommented:
-                    url = URL(string: defaultURL + "?orderBy=mostCommented" + "&after=" + UDforCache.shared.nextPageCursor)
-                case .notSorted:
-                    url = URL(string: defaultURL + "?after=" + UDforCache.shared.nextPageCursor)
-                }
-            } else {
-                return
-            }
-        case .sortedByPopularity:
-            cursor = ""
-            url = URL(string: defaultURL + "?orderBy=mostPopular")
-        case .sortedByComments:
-            cursor = ""
-            url = URL(string: defaultURL + "?orderBy=mostCommented")
-        case .sortedByDate:
-            cursor = ""
-            url = URL(string: defaultURL + "?orderBy=createdAt")
+        
+        if loadMore == false { cursor = "" }
+        switch sort {
+        case .mostPopular:
+            requestURL = RequestType.sortedByPopularity(defaultURL, UDservice.shared.nextPageCursor).url
+        case .mostCommented:
+            requestURL = RequestType.sortedByComments(defaultURL, UDservice.shared.nextPageCursor).url
+        case .createdAt:
+            requestURL = RequestType.sortedByDate(defaultURL, UDservice.shared.nextPageCursor).url
         case .notSorted:
-            cursor = ""
-            url = URL(string: defaultURL)
+            requestURL = RequestType.defaultRequest(defaultURL, UDservice.shared.nextPageCursor).url
+        case .none:
+            requestURL = RequestType.firstRequest(defaultURL).url
         }
         
-        guard let safeURL = url else { return }
+        guard let requestURL = requestURL else { return }
         
-        let dataTask = URLSession.shared.dataTask(with: safeURL) { (data, response, error) in
-            guard let jsonData = data, error == nil else {
-                print("JSON data is nil")
+        let task = URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+            guard let data = data else {
+                completion(.failure(.requestFailed))
                 return
             }
-            
             do {
-                let postDict = try JSONDecoder().decode(PostDict.self, from: jsonData)
-                guard let dataToConsider = postDict.data else {
-                    print("Could not decode JSON")
-                    print("Failed to load posts from URL: " + "\(url!.absoluteURL)")
+                let postDict = try JSONDecoder().decode(PostDict?.self, from: data)
+                print(requestURL)
+                guard let dataToConsider = postDict?.data else {
+                    completion(.failure(.invalidData))
                     return
                 }
                 parsedData = dataToConsider.items
-                guard let cursor = dataToConsider.cursor else { return }
-                self.cursor = cursor.withReplacedCharacters("+", by: "%2B")
-                print("Cursor recieved: " + cursor)
+                guard let cursor = dataToConsider.cursor else {
+                    completion(.failure(.cursorError))
+                    return
+                }
+                self.cursor = cursor.replacingOccurrences(of: "+", with: "%2B")
+                
+                completion(.success(parsedData))
+                print("JSON data parsed successfully")
             } catch {
-                print(error)
-                return
+                completion(.failure(.invalidData))
             }
-            DispatchQueue.main.async {
-                completion(parsedData)
-            }
-            print("JSON data parsed successfully")
         }
-        dataTask.resume()
+        task.resume()
     }
 
 }

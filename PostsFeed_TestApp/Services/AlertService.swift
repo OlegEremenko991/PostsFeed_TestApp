@@ -8,10 +8,16 @@
 import UIKit
 
 final class AlertService {
-    static func showAlert(style: UIAlertController.Style, sortType: SortType, actions: [UIAlertAction]) -> UIAlertController {
+
+    static func showAlert(style: UIAlertController.Style, sortType: SortType?, message: String? = nil, actions: [UIAlertAction]) -> UIAlertController {
+        
+        let sortComment = "Data source has been loaded from scratch"
+        var textMessage: String {
+            guard let message = message else { return sortComment }
+            return message
+        }
         
         var title = ""
-        let message = "Data source has been loaded from scratch"
         
         switch sortType {
         case .notSorted:
@@ -22,9 +28,11 @@ final class AlertService {
             title = "Sorted by number of comments"
         case .createdAt:
             title = "Sorted by creation date"
+        case .none:
+            title = "Error"
         }
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        let alert = UIAlertController(title: title, message: textMessage, preferredStyle: style)
         for action in actions {
             alert.addAction(action)
         }

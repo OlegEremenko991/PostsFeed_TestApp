@@ -13,30 +13,30 @@ final class MainVC: UIViewController {
     
     private let tableView = UITableView()
     private var safeArea: UILayoutGuide!
+    private var alert: UIAlertController?
     private let activityIndicator = UIActivityIndicatorView()
     
     // Data source for tableView
     private var postData: [Item] = [] {
-        didSet { UDforCache.shared.postsArray = postData }
+        didSet { UDservice.shared.postsArray = postData }
     }
     
-    // Shows current sort order
-    private var sortedBy = SortType.notSorted
+    // Current sort order
+    private var sortedBy: SortType?
 
 // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupInitialData()
         setupView()
-        setupTableView()
         performInitialPostsLoad()
     }
     
 // MARK: Private methods
     
     private func setupView() {
+
+        setupInitialData()
         safeArea = view.layoutMarginsGuide
         
         view.backgroundColor = .white
@@ -44,34 +44,32 @@ final class MainVC: UIViewController {
         view.addSubview(activityIndicator)
         
         activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
         
         setupNavigationItem()
+        setupTableView()
     }
     
     // Set data source and sort type from UserDefaults
     
     private func setupInitialData() {
-        postData = UDforCache.shared.postsArray
-        sortedBy = SortType(rawValue: UDforCache.shared.currentSortType)!
+        postData = UDservice.shared.postsArray
+        sortedBy = SortType(rawValue: UDservice.shared.currentSortType)
     }
     
     // If data source for tableView is empty, perform request
     
     private func performInitialPostsLoad() {
         if postData.isEmpty {
-            getPosts(requestType: Request.first, sort: .notSorted)
+            getPosts()
         }
     }
-    
-    // Setup navigation item
     
     private func setupNavigationItem() {
         let sortButton = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortAction))
         navigationItem.rightBarButtonItem = sortButton
         navigationItem.title = "Posts Feed"
     }
-    
-    // Setup table view
     
     private func setupTableView() {
         tableView.dataSource = self
@@ -87,49 +85,64 @@ final class MainVC: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    // Main method to request posts from DataLoader
+    // Main method to request posts from NetworkService
     
-    private func getPosts(requestType: Request, sort: SortType, loadmore: Bool = false) {
+    private func getPosts(sort: SortType? = nil, loadmore: Bool = false) {
         
         activityIndicator.startAnimating()
-        
-        DataLoader.shared.loadPosts(requestType: requestType, sortBy: sort) { (posts) in
-            if loadmore {
-                self.postData.append(contentsOf: posts)
-            } else {
-                self.postData = posts
+    
+        DataLoader.shared.loadPosts(sort: sort, loadMore: loadmore) { result in
+            switch result {
+            case .success(let data):
+                if loadmore {
+                    self.postData.append(contentsOf: data)
+                } else {
+                    self.postData = data
+                }
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.rawValue)
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.showAlertController(message: error.rawValue, error: true)
+                }
             }
-            
-            self.tableView.reloadData()
-            self.activityIndicator.stopAnimating()
         }
+        
     }
     
     // Sort action for bar button item
     
     @objc private func sortAction() {
         print("Sort button tapped")
-
+        
         switch sortedBy {
         case .notSorted:
-            getPosts(requestType: .sortedByDate, sort: .createdAt)
+            getPosts(sort: .createdAt)
             sortedBy = .createdAt
         case .createdAt:
-            getPosts(requestType: .sortedByPopularity, sort: .mostPopular)
+            getPosts(sort: .mostPopular)
             sortedBy = .mostPopular
         case .mostPopular:
-            getPosts(requestType: .sortedByComments, sort: .mostCommented)
+            getPosts(sort: .mostCommented)
             sortedBy = .mostCommented
         case .mostCommented:
-            getPosts(requestType: .notSorted, sort: .notSorted)
+            getPosts(sort: .notSorted)
             sortedBy = .notSorted
+        case .none:
+            getPosts(sort: .createdAt)
+            sortedBy = .createdAt
         }
         
-        print("Sorting by: " + "\(sortedBy)")
-        print("VC has sort type: " + "\(sortedBy)")
+        print("Sorting by: " + "\(sortedBy!)")
+        print("VC has sort type: " + "\(sortedBy!)")
         
-        UDforCache.shared.currentSortType = sortedBy.rawValue
-        showAlertController()
+        guard let sortedBy = sortedBy else { return }
+        UDservice.shared.currentSortType = sortedBy.rawValue
+        showAlertController(error: false)
     }
     
     // Convert date from UNIX to Date
@@ -168,8 +181,10 @@ extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = postData.count - 1
+        
+        // Load more posts when scrolling down
         if indexPath.row == lastElement {
-            getPosts(requestType: .following, sort: sortedBy, loadmore: true) // Load more posts when scrolling down
+            getPosts(sort: sortedBy, loadmore: true)
         }
     }
 }
@@ -204,7 +219,6 @@ extension MainVC: UITableViewDelegate {
                 postVC.contentLabel.text = x.data.value
             }
         }
-        
         navigationController?.pushViewController(postVC, animated: true)
     }
 }
@@ -212,9 +226,20 @@ extension MainVC: UITableViewDelegate {
 // MARK: UINavigationControllerDelegate
 
 extension MainVC: UINavigationControllerDelegate {
-    func showAlertController() {
-        let okAction = UIAlertAction(title: "Ok!", style: .cancel, handler: nil)
-        let alert = AlertService.showAlert(style: .alert, sortType: sortedBy, actions: [okAction])
+    func showAlertController(message: String? = nil, error: Bool) {
+        
+        // Prevent from showing multiple alert controllers
+        guard alert == nil else { return }
+        let okAction = UIAlertAction(title: "Ok", style: .cancel) { _ in
+            self.alert = nil
+        }
+        if error {
+            alert = AlertService.showAlert(style: .alert, sortType: nil, message: message, actions: [okAction])
+        } else {
+            guard let sortedBy = sortedBy else { return }
+            alert = AlertService.showAlert(style: .alert, sortType: sortedBy, message: message, actions: [okAction])
+        }
+        guard let alert = alert else { return }
         self.navigationController?.present(alert, animated: true, completion: nil)
     }
 }
