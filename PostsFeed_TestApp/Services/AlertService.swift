@@ -9,6 +9,7 @@ import UIKit
 
 final class AlertService {
 
+    /// Shows customizable alert
     static func showAlert(style: UIAlertController.Style, sortType: SortType?, message: String? = nil, actions: [UIAlertAction]) -> UIAlertController {
         
         let sortComment = "Data source has been loaded from scratch"

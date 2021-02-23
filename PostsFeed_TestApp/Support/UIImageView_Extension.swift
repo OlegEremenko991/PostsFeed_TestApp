@@ -9,8 +9,7 @@ import UIKit
 
 extension UIImageView {
     
-    // Load image from URL on background thread and update UI on main thread
-    
+    /// Load image from URL on background thread and update UI on main thread
     func load(url: URL) {
         let queue = DispatchQueue.global(qos: .utility)
         queue.async {

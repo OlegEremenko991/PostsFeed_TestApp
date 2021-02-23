@@ -7,23 +7,17 @@
 
 import Foundation
 
-public final class UDservice {
-    
-    static let shared = UDservice()
-    
-// MARK: Private properties
-    
-    private let nextPageCursorKey = "nextPageCursorKey" //key for cursor
-    private let postsArrayKey = "postsArrayKey" // key for posts array
-    private let sortTypeKey = "sortTypeKey" // key for current sort type
-    
-// MARK: Public properties
-    
+public final class UserDefaultsService {
+
+// MARK: - Public properties
+
+    static let shared = UserDefaultsService()
+
     var nextPageCursor: String {
         get { return UserDefaults.standard.string(forKey: nextPageCursorKey) ?? "" }
         set { UserDefaults.standard.set(newValue, forKey: nextPageCursorKey) }
     }
-    
+
     var postsArray: [Item] {
         get {
             guard let encodedData = UserDefaults.standard.array(forKey: postsArrayKey) as? [Data] else {
@@ -31,13 +25,13 @@ public final class UDservice {
             }
             return encodedData.map { try! JSONDecoder().decode(Item.self, from: $0) }
         }
-        
+
         set {
             let data = newValue.map { try? JSONEncoder().encode($0) }
             UserDefaults.standard.set(data, forKey: postsArrayKey)
         }
     }
-    
+
     var currentSortType: String {
         get {
             guard let sortTypeRawValue = UserDefaults.standard.string(forKey: sortTypeKey) else { return "notSorted" }
@@ -45,6 +39,17 @@ public final class UDservice {
         }
         set { UserDefaults.standard.set(newValue, forKey: sortTypeKey) }
     }
+    
+// MARK: - Private properties
+
+    /// Cursor
+    private let nextPageCursorKey = "nextPageCursorKey"
+
+    /// PostsArray
+    private let postsArrayKey = "postsArrayKey"
+
+    /// Current sort type
+    private let sortTypeKey = "sortTypeKey"
 
 }
 

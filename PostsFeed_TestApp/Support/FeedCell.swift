@@ -9,37 +9,37 @@ import UIKit
 
 final class FeedCell: UITableViewCell {
     
-// MARK: Public properties
+    // MARK: - Public properties
 
     static let cellID = "FeedCellID"
     
-// MARK: UI elements
+    // MARK: - Private properties
     
-    let dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Date"
         label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let authorLabel: UILabel = {
+    private lazy var authorLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.text = "Author"
         label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let containerView: UIView = {
+    private lazy var containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.clipsToBounds = true
         return view
     }()
     
-// MARK: Lifecycle
+    // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -49,14 +49,21 @@ final class FeedCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    // MARK: Private methods
+
+    // MARK: - Public methods
+
+    func setupCell(date: String, author: String) {
+        dateLabel.text = date
+        authorLabel.text = author
+    }
+
+    // MARK: - Private methods
     
     private func setupView() {
         containerView.addSubview(dateLabel)
         containerView.addSubview(authorLabel)
         contentView.addSubview(containerView)
-        
+
         containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true

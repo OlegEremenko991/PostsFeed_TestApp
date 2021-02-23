@@ -8,22 +8,23 @@
 import UIKit
 
 public final class NetworkService {
-    
+
+    /// Loads posts with chosen sortType
     static func loadPosts(sort: SortType? = nil, loadMore: Bool? = nil, completion: @escaping (Result<[Item], ErrorType>) -> ()) {
         let defaultURL = "http://stage.apianon.ru:3000/fs-posts/v1/posts"
         var requestURL: URL?
         
-        if loadMore == false { UDservice.shared.nextPageCursor = "" }
+        if loadMore == false { UserDefaultsService.shared.nextPageCursor = "" }
         
         switch sort {
         case .mostPopular:
-            requestURL = RequestType.sortedByPopularity(defaultURL, UDservice.shared.nextPageCursor).url
+            requestURL = RequestType.sortedByPopularity(defaultURL, UserDefaultsService.shared.nextPageCursor).url
         case .mostCommented:
-            requestURL = RequestType.sortedByComments(defaultURL, UDservice.shared.nextPageCursor).url
+            requestURL = RequestType.sortedByComments(defaultURL, UserDefaultsService.shared.nextPageCursor).url
         case .createdAt:
-            requestURL = RequestType.sortedByDate(defaultURL, UDservice.shared.nextPageCursor).url
+            requestURL = RequestType.sortedByDate(defaultURL, UserDefaultsService.shared.nextPageCursor).url
         case .notSorted:
-            requestURL = RequestType.defaultRequest(defaultURL, UDservice.shared.nextPageCursor).url
+            requestURL = RequestType.defaultRequest(defaultURL, UserDefaultsService.shared.nextPageCursor).url
         case .none:
             requestURL = RequestType.firstRequest(defaultURL).url
         }
@@ -49,7 +50,7 @@ public final class NetworkService {
                     return
                 }
                 
-                UDservice.shared.nextPageCursor = cursor.replacingOccurrences(of: "+", with: "%2B")
+                UserDefaultsService.shared.nextPageCursor = cursor.replacingOccurrences(of: "+", with: "%2B")
                 
                 completion(.success(parsedData))
             } catch {

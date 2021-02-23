@@ -19,7 +19,7 @@
 		67D2FB082518D02B00657C24 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D2FB072518D02B00657C24 /* NetworkService.swift */; };
 		67EA30B22519E32000F0D7A5 /* JsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30B12519E32000F0D7A5 /* JsonModel.swift */; };
 		67EA30CA2519E46300F0D7A5 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30C92519E46300F0D7A5 /* SortType.swift */; };
-		67EA30D9251A0A3C00F0D7A5 /* UDservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30D8251A0A3C00F0D7A5 /* UDservice.swift */; };
+		67EA30D9251A0A3C00F0D7A5 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30D8251A0A3C00F0D7A5 /* UserDefaultsService.swift */; };
 		67EA30FA251A2B1000F0D7A5 /* UIImageView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */; };
 		67EA3101251A6C5F00F0D7A5 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EA3100251A6C5E00F0D7A5 /* AlertService.swift */; };
 /* End PBXBuildFile section */
@@ -39,7 +39,7 @@
 		67D2FB072518D02B00657C24 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		67EA30B12519E32000F0D7A5 /* JsonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonModel.swift; sourceTree = "<group>"; };
 		67EA30C92519E46300F0D7A5 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
-		67EA30D8251A0A3C00F0D7A5 /* UDservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDservice.swift; sourceTree = "<group>"; };
+		67EA30D8251A0A3C00F0D7A5 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView_Extension.swift; sourceTree = "<group>"; };
 		67EA3100251A6C5E00F0D7A5 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				67D2FB072518D02B00657C24 /* NetworkService.swift */,
-				67EA30D8251A0A3C00F0D7A5 /* UDservice.swift */,
+				67EA30D8251A0A3C00F0D7A5 /* UserDefaultsService.swift */,
 				67EA3100251A6C5E00F0D7A5 /* AlertService.swift */,
 			);
 			path = Services;
@@ -68,6 +68,8 @@
 		677C8D1C2533345800A06677 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				67EA30FC251A2B2F00F0D7A5 /* Enums */,
+				67D2FAF12518A24600657C24 /* FeedCell.swift */,
 				67EA30F9251A2B1000F0D7A5 /* UIImageView_Extension.swift */,
 			);
 			path = Support;
@@ -94,8 +96,7 @@
 			children = (
 				677C8D0B2533323D00A06677 /* Services */,
 				67EA30CE2519E92700F0D7A5 /* App */,
-				67E9E9DA251B6E0000FBC39D /* Controllers */,
-				67EA30FC251A2B2F00F0D7A5 /* Enums */,
+				67E9E9DA251B6E0000FBC39D /* ViewControllers */,
 				67EA30B02519E31200F0D7A5 /* Model */,
 				677C8D1C2533345800A06677 /* Support */,
 				67D2FADB2518968500657C24 /* Assets.xcassets */,
@@ -106,14 +107,13 @@
 			sourceTree = "<group>";
 			usesTabs = 0;
 		};
-		67E9E9DA251B6E0000FBC39D /* Controllers */ = {
+		67E9E9DA251B6E0000FBC39D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				67D2FAD62518968200657C24 /* MainVC.swift */,
-				67D2FAF12518A24600657C24 /* FeedCell.swift */,
 				67D2FAFD2518BEB900657C24 /* PostVC.swift */,
 			);
-			path = Controllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		67EA30B02519E31200F0D7A5 /* Model */ = {
@@ -219,7 +219,7 @@
 				67EA3101251A6C5F00F0D7A5 /* AlertService.swift in Sources */,
 				67EA30B22519E32000F0D7A5 /* JsonModel.swift in Sources */,
 				67D2FAD32518968200657C24 /* AppDelegate.swift in Sources */,
-				67EA30D9251A0A3C00F0D7A5 /* UDservice.swift in Sources */,
+				67EA30D9251A0A3C00F0D7A5 /* UserDefaultsService.swift in Sources */,
 				67D2FB082518D02B00657C24 /* NetworkService.swift in Sources */,
 				677C8D022532EB9800A06677 /* RequestType.swift in Sources */,
 				67D2FAF22518A24600657C24 /* FeedCell.swift in Sources */,
