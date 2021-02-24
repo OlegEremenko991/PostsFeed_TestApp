@@ -225,9 +225,9 @@ extension MainVC: UITableViewDelegate {
         if let imageStringURL = post.author?.photo?.data.extraSmall.url {
             postVC.authorImageName = imageStringURL
         }
-        
+
         for element in content {
-            if element.type == "TEXT" {
+            if element.type == .text {
                 postVC.contentLabel.text = element.data.value
             }
         }

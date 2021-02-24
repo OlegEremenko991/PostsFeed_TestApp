@@ -21,7 +21,7 @@ struct Item: Codable {
 }
 
 struct Content: Codable {
-    var type: String
+    var type: ExtraType
     var data: ContentData
 }
 
@@ -40,12 +40,6 @@ struct Photo: Codable {
     var type: ExtraType
     var id: String
     var data: PhotoData
-}
-
-enum ExtraType: String, Codable {
-    case image = "IMAGE"
-    case tags = "TAGS"
-    case text = "TEXT"
 }
 
 struct PhotoData: Codable {
