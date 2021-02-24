@@ -8,7 +8,6 @@
 import Foundation
 
 enum RequestType {
-    
     case firstRequest(String)
     case sortedByPopularity(String, String)
     case sortedByComments(String, String)
@@ -18,37 +17,27 @@ enum RequestType {
     // MARK: Public properties
     
     var url: URL? {
-        return URL(string: stringURL)
+        URL(string: stringURL)
     }
-    
-    var stringURL: String {
+
+    // MARK: - Private properties
+
+    private var stringURL: String {
         switch self {
         case .firstRequest(let defaultURL):
             return defaultURL
         case .sortedByDate(let defaultURL, let cursor):
-            if cursor != "" {
-                return defaultURL + "?orderBy=createdAt" + "&after=" + cursor
-            } else {
-                return defaultURL + "?orderBy=createdAt"
-            }
+            return cursor != "" ? defaultURL + "?orderBy=createdAt" + "&after=" + cursor
+                                : defaultURL + "?orderBy=createdAt"
         case .sortedByPopularity(let defaultURL, let cursor):
-            if cursor != "" {
-                return defaultURL + "?orderBy=mostPopular" + "&after=" + cursor
-            } else {
-                return defaultURL + "?orderBy=mostPopular"
-            }
+            return cursor != "" ? defaultURL + "?orderBy=mostPopular" + "&after=" + cursor
+                                : defaultURL + "?orderBy=mostPopular"
         case .sortedByComments(let defaultURL, let cursor):
-            if cursor != "" {
-                return defaultURL + "?orderBy=mostCommented" + "&after=" + cursor
-            } else {
-                return defaultURL + "?orderBy=mostCommented"
-            }
+            return cursor != "" ? defaultURL + "?orderBy=mostCommented" + "&after=" + cursor
+                                : defaultURL + "?orderBy=mostCommented"
         case .defaultRequest(let defaultURL, let cursor):
-            if cursor != "" {
-                return defaultURL + "?after=" + cursor
-            } else {
-                return defaultURL
-            }
+            return cursor != "" ? defaultURL + "?after=" + cursor
+                                : defaultURL
         }
     }
 
