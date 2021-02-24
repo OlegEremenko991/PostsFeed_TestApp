@@ -226,9 +226,9 @@ extension MainVC: UITableViewDelegate {
             postVC.authorImageName = imageStringURL
         }
         
-        for x in content {
-            if x.type == "TEXT" {
-                postVC.contentLabel.text = x.data.value
+        for element in content {
+            if element.type == "TEXT" {
+                postVC.contentLabel.text = element.data.value
             }
         }
         navigationController?.pushViewController(postVC, animated: true)

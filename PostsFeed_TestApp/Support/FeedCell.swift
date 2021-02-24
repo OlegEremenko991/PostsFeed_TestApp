@@ -43,7 +43,7 @@ final class FeedCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupView()
+        setupConstraints()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +52,7 @@ final class FeedCell: UITableViewCell {
 
     // MARK: - Public methods
 
+    /// Setup dateLabel and authorLabel for the cell
     func setupCell(date: String, author: String) {
         dateLabel.text = date
         authorLabel.text = author
@@ -59,26 +60,42 @@ final class FeedCell: UITableViewCell {
 
     // MARK: - Private methods
     
-    private func setupView() {
+    private func setupConstraints() {
         containerView.addSubview(dateLabel)
         containerView.addSubview(authorLabel)
         contentView.addSubview(containerView)
 
-        containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        containerView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
-        
-        dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        dateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
-        dateLabel.trailingAnchor.constraint(equalTo: authorLabel.leadingAnchor, constant: -15).isActive = true
-        dateLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
-        dateLabel.widthAnchor.constraint(equalTo: authorLabel.widthAnchor).isActive = true
+        /// Setup containerView
+        NSLayoutConstraint.activate(
+            [
+                containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+                containerView.heightAnchor.constraint(equalTo: contentView.heightAnchor)
+            ]
+        )
 
-        authorLabel.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        authorLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 15).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
-        authorLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        /// Setup dateLabel
+        NSLayoutConstraint.activate(
+            [
+                dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+                dateLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+                dateLabel.trailingAnchor.constraint(equalTo: authorLabel.leadingAnchor, constant: -15),
+                dateLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                dateLabel.widthAnchor.constraint(equalTo: authorLabel.widthAnchor)
+            ]
+        )
+
+        /// Setup authorLabel
+        NSLayoutConstraint.activate(
+            [
+                authorLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+                authorLabel.leadingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 15),
+                authorLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                authorLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                authorLabel.topAnchor.constraint(equalTo: containerView.topAnchor)
+            ]
+        )
     }
 
 }
