@@ -9,7 +9,7 @@ import Foundation
 
 public final class UserDefaultsService {
 
-// MARK: - Public properties
+    // MARK: - Public properties
 
     static let shared = UserDefaultsService()
 
@@ -40,7 +40,7 @@ public final class UserDefaultsService {
         set { UserDefaults.standard.set(newValue, forKey: sortTypeKey) }
     }
     
-// MARK: - Private properties
+    // MARK: - Private properties
 
     /// Cursor
     private let nextPageCursorKey = "nextPageCursorKey"

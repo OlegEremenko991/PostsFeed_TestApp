@@ -41,7 +41,6 @@ public final class NetworkService {
                     completion(.failure(.invalidData))
                     return
                 }
-                
                 var parsedData = [Item]()
                 parsedData = mainData.items
                 
@@ -49,9 +48,7 @@ public final class NetworkService {
                     completion(.failure(.cursorError))
                     return
                 }
-                
                 UserDefaultsService.shared.nextPageCursor = cursor.replacingOccurrences(of: "+", with: "%2B")
-                
                 completion(.success(parsedData))
             } catch {
                 completion(.failure(.invalidData))
