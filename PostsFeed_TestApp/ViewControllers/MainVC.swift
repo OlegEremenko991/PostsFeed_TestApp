@@ -175,6 +175,16 @@ final class MainVC: UIViewController {
         guard let alert = alert else { return }
         present(alert, animated: true, completion: nil)
     }
+
+    private func findContentText(in content: [Content]) -> String? {
+        for element in content {
+            if element.type == .text {
+                return element.data.value
+            }
+        }
+        return ""
+    }
+
 }
 
 // MARK: UITableViewDataSource
@@ -217,20 +227,13 @@ extension MainVC: UITableViewDelegate {
         
         let postVC = PostVC()
         let post = postsDataSource[indexPath.row]
-        let content = post.contents
-        
-        postVC.dateLabel.text = "Created at: " + convertDate(value: post.createdAt, short: false)
-        postVC.authorNameLabel.text = "Author name: " + "\(post.author?.name ?? "Unknown")"
-        
-        if let imageStringURL = post.author?.photo?.data.extraSmall.url {
-            postVC.authorImageName = imageStringURL
-        }
+        let imageStringURL = post.author?.photo?.data.extraSmall.url
 
-        for element in content {
-            if element.type == .text {
-                postVC.contentLabel.text = element.data.value
-            }
-        }
+        postVC.setupVC(dateString: "Created at: " + convertDate(value: post.createdAt, short: false),
+                       authorName: "Author name: " + "\(post.author?.name ?? "Unknown")",
+                       authorImageString: imageStringURL,
+                       contentText: findContentText(in: post.contents))
+
         navigationController?.pushViewController(postVC, animated: true)
     }
 }
