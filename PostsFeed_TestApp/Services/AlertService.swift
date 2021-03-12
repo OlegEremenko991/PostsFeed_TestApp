@@ -11,7 +11,7 @@ final class AlertService {
 
     /// Shows customizable alert
     static func showAlert(style: UIAlertController.Style, sortType: SortType?, message: String? = nil, actions: [UIAlertAction]) -> UIAlertController {
-        
+
         let sortComment = "Data source has been loaded from scratch"
         var textMessage: String {
             guard let message = message else { return sortComment }
@@ -34,10 +34,7 @@ final class AlertService {
         }
         
         let alert = UIAlertController(title: title, message: textMessage, preferredStyle: style)
-        for action in actions {
-            alert.addAction(action)
-        }
-        
+        actions.forEach { alert.addAction($0) }
         return alert
     }
 }

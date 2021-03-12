@@ -24,16 +24,21 @@ final class MainVC: UIViewController {
     }()
     private var safeArea: UILayoutGuide!
     private var alert: UIAlertController?
-    private let activityIndicator = UIActivityIndicatorView()
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
     private var postsDataSource: [Item] = [] {
         didSet { UserDefaultsService.shared.postsArray = postsDataSource }
     }
+
     private lazy var sortAction: UIAction = {
         UIAction { [weak self] action in
             self?.sortFunc()
         }
     }()
-
 
     /// Current sort order
     private var sortedBy: SortType?
@@ -51,14 +56,10 @@ final class MainVC: UIViewController {
     private func setupView() {
         setupInitialData()
         safeArea = view.layoutMarginsGuide
-        
         view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
-        
         activityIndicator.center = view.center
-        activityIndicator.hidesWhenStopped = true
-        
         setupNavigationItem()
         setupTableView()
     }
@@ -187,7 +188,7 @@ final class MainVC: UIViewController {
 
 }
 
-// MARK: UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension MainVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -209,22 +210,18 @@ extension MainVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = postsDataSource.count - 1
-
         // Load more posts when scrolling down
-        if indexPath.row == lastElement {
+        if indexPath.row == postsDataSource.count - 1 {
             getPosts(sort: sortedBy, loadmore: true)
         }
     }
 }
 
-// MARK: UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension MainVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
         let postVC = PostVC()
         let post = postsDataSource[indexPath.row]
         let imageStringURL = post.author?.photo?.data.extraSmall.url
@@ -233,7 +230,7 @@ extension MainVC: UITableViewDelegate {
                        authorName: "Author name: " + "\(post.author?.name ?? "Unknown")",
                        authorImageString: imageStringURL,
                        contentText: findContentText(in: post.contents))
-
+        tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.pushViewController(postVC, animated: true)
     }
 }

@@ -57,6 +57,8 @@ final class PostVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupSubviews()
+        setupConstraints()
     }
 
     // MARK: - Public methods
@@ -83,13 +85,16 @@ final class PostVC: UIViewController {
     private func setupView() {
         view.backgroundColor = .white
         navigationItem.title = "Post Details"
+    }
 
+    private func setupSubviews() {
         [dateLabel, authorNameLabel, authorImageView, contentLabel].forEach {
             containerView.addSubview($0)
         }
         view.addSubview(containerView)
+    }
 
-        /// Setup containerView
+    private func setupConstraints() {
         NSLayoutConstraint.activate(
             [
                 containerView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
@@ -99,7 +104,6 @@ final class PostVC: UIViewController {
             ]
         )
 
-        /// Setup dateLabel
         NSLayoutConstraint.activate(
             [
                 dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -109,7 +113,6 @@ final class PostVC: UIViewController {
             ]
         )
 
-        /// Setup authorNameLabel
         NSLayoutConstraint.activate(
             [
                 authorNameLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
@@ -119,7 +122,6 @@ final class PostVC: UIViewController {
             ]
         )
 
-        /// Setup authorImageView
         NSLayoutConstraint.activate(
             [
                 authorImageView.topAnchor.constraint(equalTo: authorNameLabel.bottomAnchor, constant: 5),
@@ -129,7 +131,6 @@ final class PostVC: UIViewController {
             ]
         )
 
-        /// Setup contentLabel
         NSLayoutConstraint.activate(
             [
                 contentLabel.topAnchor.constraint(equalTo: authorImageView.bottomAnchor, constant: 10),

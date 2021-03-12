@@ -36,14 +36,13 @@ public final class NetworkService {
             }
             do {
                 let postDict = try JSONDecoder().decode(PostDict?.self, from: data)
-
                 guard let mainData = postDict?.data else {
                     completion(.failure(.invalidData))
                     return
                 }
                 var parsedData = [Item]()
                 parsedData = mainData.items
-                
+    
                 guard let cursor = mainData.cursor else {
                     completion(.failure(.cursorError))
                     return

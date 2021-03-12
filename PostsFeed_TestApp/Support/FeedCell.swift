@@ -43,6 +43,7 @@ final class FeedCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupSubviews()
         setupConstraints()
     }
 
@@ -59,13 +60,14 @@ final class FeedCell: UITableViewCell {
     }
 
     // MARK: - Private methods
-    
-    private func setupConstraints() {
+
+    private func setupSubviews() {
         containerView.addSubview(dateLabel)
         containerView.addSubview(authorLabel)
         contentView.addSubview(containerView)
+    }
 
-        /// Setup containerView
+    private func setupConstraints() {
         NSLayoutConstraint.activate(
             [
                 containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -75,7 +77,6 @@ final class FeedCell: UITableViewCell {
             ]
         )
 
-        /// Setup dateLabel
         NSLayoutConstraint.activate(
             [
                 dateLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
@@ -86,7 +87,6 @@ final class FeedCell: UITableViewCell {
             ]
         )
 
-        /// Setup authorLabel
         NSLayoutConstraint.activate(
             [
                 authorLabel.topAnchor.constraint(equalTo: containerView.topAnchor),

@@ -14,7 +14,7 @@ public final class UserDefaultsService {
     static let shared = UserDefaultsService()
 
     var nextPageCursor: String {
-        get { return UserDefaults.standard.string(forKey: nextPageCursorKey) ?? "" }
+        get { UserDefaults.standard.string(forKey: nextPageCursorKey) ?? "" }
         set { UserDefaults.standard.set(newValue, forKey: nextPageCursorKey) }
     }
 
